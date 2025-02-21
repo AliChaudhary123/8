@@ -1,15 +1,15 @@
 package edu.ucalgary.oop;
 
 public class Inquirer {
-    private String firstName;
-    private String lastName;
-    private String info;
-    private String servicesPhoneNum;
+    private final String firstName;
+    private final String lastName;
+    private final String info;
+    private final String servicesPhone;
 
-    public Inquirer(String firstName, String lastName, String servicesPhoneNum, String info){
+    public Inquirer(String firstName, String lastName, String servicesPhone, String info){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.servicesPhoneNum = servicesPhoneNum;
+        this.servicesPhone = servicesPhone;
         this.info = info;
     }
 
@@ -25,7 +25,7 @@ public class Inquirer {
 
     public String getServicesPhoneNum()
     {
-        return servicesPhoneNum;
+        return servicesPhone;
     }
 
     public String getInfo()
