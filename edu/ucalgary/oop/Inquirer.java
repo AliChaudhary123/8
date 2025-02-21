@@ -28,7 +28,7 @@ public class Inquirer {
         return servicesPhoneNum;
     }
 
-    public String info()
+    public String getInfo()
     {
         return info;
     }
