@@ -1,36 +1,36 @@
 package edu.ucalgary.oop;
 
 public class Inquirer {
-    private final String firstName;
-    private final String lastName;
-    private final String info;
-    private final String servicesPhone;
+    private final String FIRST_NAME;
+    private final String LAST_NAME;
+    private final String INFO;
+    private final String SERVICES_PHONE;
 
     public Inquirer(String firstName, String lastName, String servicesPhone, String info){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.servicesPhone = servicesPhone;
-        this.info = info;
+        this.FIRST_NAME = firstName;
+        this.LAST_NAME = lastName;
+        this.SERVICES_PHONE = servicesPhone;
+        this.INFO = info;
     }
 
     public String getFirstName()
     {
-        return firstName;
+        return FIRST_NAME;
     }
 
     public String getLastName()
     {
-        return lastName;
+        return LAST_NAME;
     }
 
     public String getServicesPhoneNum()
     {
-        return servicesPhone;
+        return SERVICES_PHONE;
     }
 
     public String getInfo()
     {
-        return info;
+        return INFO;
     }
 
     
