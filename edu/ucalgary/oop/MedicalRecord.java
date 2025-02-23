@@ -45,7 +45,7 @@ public class MedicalRecord {
         }
     }
 
-    public boolean isValidDateFormat(String date) { 
+    private boolean isValidDateFormat(String date) { 
 
         Pattern dateFormat = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");  // Only allowing the YYYY-MM-DD format
         Matcher myMatcher = dateFormat.matcher(date); 
