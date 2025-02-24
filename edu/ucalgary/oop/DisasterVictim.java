@@ -165,6 +165,7 @@ public class DisasterVictim {
     private int convertDateStringToInt(String dateStr){
         // Note: assumes the date follows the correct format (YYYY-MM-DD)
         // NOTE: NOT IMPLEMENTED YET!
+        String[] str = dateStr.split("-", 0);
         return 1;
     }
 }
