@@ -162,10 +162,13 @@ public class DisasterVictim {
         return myMatcher.matches();
     }
 
-    private int convertDateStringToInt(String dateStr){
+   private int convertDateStringToInt(String dateStr){
         // Note: assumes the date follows the correct format (YYYY-MM-DD)
         // NOTE: NOT IMPLEMENTED YET!
         String[] str = dateStr.split("-", 0);
-        return 1;
+        String newStr = str[0]+str[1]+str[2];
+        int dateAsInt = Integer.parseInt(newStr);
+        
+        return dateAsInt;
     }
 }
