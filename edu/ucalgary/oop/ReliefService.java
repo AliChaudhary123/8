@@ -74,32 +74,43 @@ public class ReliefService {
 	public String getLogDetails() {
 		String inquirerDetails;
 		if (inquirer != null) {
-		    inquirerDetails = "Inquirer: " + inquirer.getLastName();
+		    inquirerDetails = "Inquirer: " + inquirer.getFirstName();
 		} else {
-		    inquirerDetails = "Unknown";
+		    inquirerDetails = "Inquirer: Unknown";
 		}
 		
 		String missingPersonDetails;
+		String newLastName;
+		
 		if (missingPerson != null) {
-			missingPersonDetails = "Missing Person: " + missingPerson.getLastName();
-		} else {
-			missingPersonDetails = "Unknown";
+			if (missingPerson.getLastName() == null) {
+				newLastName = "";
+				missingPersonDetails = "Missing Person: " + missingPerson.getFirstName() + newLastName;
+			} else { 
+				missingPersonDetails = "Missing Person: " + missingPerson.getFirstName() + " " + missingPerson.getLastName();
+			}
+			
+		} 
+		
+		else {
+			missingPersonDetails = "Missing Person: Unknown";
 		}
+	
 		
 		String dateDetails = "Date of Inquiry: " + dateOfInquiry;
 		
 		String infoDetails;
 		if (infoProvided != null) {
-			infoDetails = "Info: " + infoProvided;
+			infoDetails = "Info Provided: " + infoProvided;
 		} else {
-			infoDetails = "Unknown";
+			infoDetails = "Info Provided: Unknown";
 		}
 		
 		String locationDetails;
 		if (lastKnownLocation != null) {
-			locationDetails = "Last Known Location: " + lastKnownLocation.getAddress();
+			locationDetails = "Last Known Location: " + lastKnownLocation.getName();
 		} else {
-			locationDetails = "Unknown";
+			locationDetails = "Last Known Location: Unknown";
 		}
 		
 		String logDetails = inquirerDetails + ", " + 
@@ -111,3 +122,4 @@ public class ReliefService {
 		return logDetails;
 	}
 }
+
