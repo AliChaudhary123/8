@@ -15,8 +15,8 @@ import java.util.Arrays;
 
 public class DisasterVictimTest {
     private DisasterVictim victim;
-    private List<Supply> suppliesToSet; 
-    private List<FamilyRelation> familyRelations; 
+    private ArrayList<Supply> suppliesToSet;
+    private ArrayList<FamilyRelation> familyRelations;
     private String expectedFirstName = "Freda";
     private String EXPECTED_ENTRY_DATE = "2025-01-18";
     private String validDate = "2025-01-15";
@@ -157,13 +157,14 @@ public class DisasterVictimTest {
         DisasterVictim victim2 = new DisasterVictim("John", "2025-01-22");
 
         FamilyRelation relation = new FamilyRelation(victim2, "parent", victim1);
-        FamilyRelation[] expectedRelations = {relation};
+        ArrayList<FamilyRelation> expectedRelations = new ArrayList<>();
+        expectedRelations.add(relation);
         victim2.setFamilyConnections(expectedRelations);
 
-        FamilyRelation[] testFamily = victim2.getFamilyConnections();
+        ArrayList<FamilyRelation> testFamily = victim2.getFamilyConnections();
         boolean correct = false;
 
-        if ((testFamily!=null) && (testFamily[0] == expectedRelations[0])) {
+        if ((testFamily!=null) && (testFamily.get(0) == expectedRelations.get(0))) {
                 correct = true;
         }
         assertTrue("addFamilyConnection should add a family relationship", correct);
@@ -172,13 +173,13 @@ public class DisasterVictimTest {
     @Test
     public void testAddPersonalBelonging() {
         Supply newSupply = new Supply("Emergency Kit", 1);
-        victim.addPersonalBelonging(newSupply);
-        Supply[] testSupplies = victim.getPersonalBelongings();
+        victim.addPersonalBelonging(newSupply); // **
+        ArrayList<Supply> testSupplies = victim.getPersonalBelongings();
         boolean correct = false;
  
         int i;
-        for (i = 0; i < testSupplies.length; i++) {
-            if (testSupplies[i] == newSupply) {
+        for (i = 0; i < testSupplies.size(); i++) {
+            if (testSupplies.get(i) == newSupply) {
                 correct = true;
             }
         }
@@ -191,8 +192,11 @@ public void testRemoveFamilyConnection() {
         DisasterVictim victim2 = new DisasterVictim("John", "2025-01-22");
         FamilyRelation relation1 = new FamilyRelation(victim, "sibling", victim1);
         FamilyRelation relation2 = new FamilyRelation(victim, "sibling", victim2);
-        FamilyRelation[] expectedRelations = {relation2};
-        FamilyRelation[] originalRelations = {relation1, relation2};
+        ArrayList<FamilyRelation> expectedRelations = new ArrayList<>();
+        expectedRelations.add(relation2);
+        ArrayList<FamilyRelation> originalRelations = new ArrayList<>();
+        originalRelations.add(relation1);
+        originalRelations.add(relation2);
         victim.setFamilyConnections(originalRelations);
 
         DisasterVictim victim = new DisasterVictim("Freda", "2025-01-23");
@@ -200,12 +204,12 @@ public void testRemoveFamilyConnection() {
         victim.addFamilyConnection(relation2);
         victim.removeFamilyConnection(relation1);
 
-        FamilyRelation[] testFamily = victim.getFamilyConnections();
+        ArrayList<FamilyRelation> testFamily = victim.getFamilyConnections();
         boolean correct = true;
 
         int i;
-        for (i = 0; i < testFamily.length; i++) {
-            if (testFamily[i] == relation1) {
+        for (i = 0; i < testFamily.size(); i++) {
+            if (testFamily.get(i) == relation1) {
                 correct = false;
             }
         }
@@ -219,12 +223,12 @@ public void testRemovePersonalBelonging() {
         victim.addPersonalBelonging(supplyToRemove); 
         victim.removePersonalBelonging(supplyToRemove);
 
-        Supply[] testSupplies = victim.getPersonalBelongings();
+        ArrayList<Supply> testSupplies = victim.getPersonalBelongings();
         boolean correct = true;
  
         int i;
-        for (i = 0; i < testSupplies.length; i++) {
-            if (testSupplies[i] == supplyToRemove) {
+        for (i = 0; i < testSupplies.size(); i++) {
+            if (testSupplies.get(i) == supplyToRemove) {
                 correct = false;
             }
         }
@@ -238,18 +242,19 @@ public void testRemovePersonalBelonging() {
         DisasterVictim victim2 = new DisasterVictim("John", "2025-01-22");
 
         FamilyRelation relation = new FamilyRelation(victim1, "sibling", victim2);
-        FamilyRelation[] expectedRelations = {relation};
+        ArrayList<FamilyRelation> expectedRelations = new ArrayList<>();
+        expectedRelations.add(relation);
         victim1.setFamilyConnections(expectedRelations);
         boolean correct = true;
 
        // We have not studied overriding equals in arrays of custom objects so we will manually evaluate equality
-       FamilyRelation[] actualRecords = victim1.getFamilyConnections();
-       if (expectedRelations.length != actualRecords.length) {
+       ArrayList<FamilyRelation> actualRecords = victim1.getFamilyConnections();
+       if (expectedRelations.size() != actualRecords.size()) {
            correct = false;
        } else {    
            int i;
-           for (i=0;i<actualRecords.length;i++) {
-               if (expectedRelations[i] != actualRecords[i]) {
+           for (i=0;i<actualRecords.size();i++) {
+               if (expectedRelations.get(i) != actualRecords.get(i)) {
                    correct = false;
                }
            }
@@ -263,17 +268,18 @@ public void testSetMedicalRecords() {
     MedicalRecord testRecord = new MedicalRecord(testLocation, "test for strep", "2025-02-09");
     boolean correct = true;
 
-    MedicalRecord[] newRecords = { testRecord };
+    ArrayList<MedicalRecord> newRecords = new ArrayList<>();
+    newRecords.add(testRecord);
     victim.setMedicalRecords(newRecords);
-    MedicalRecord[] actualRecords = victim.getMedicalRecords();
+    ArrayList<MedicalRecord> actualRecords = victim.getMedicalRecords();
 
     // We have not studied overriding equals in arrays of custom objects so we will manually evaluate equality
-    if (newRecords.length != actualRecords.length) {
+    if (newRecords.size() != actualRecords.size()) {
         correct = false;
     } else {
         int i;
-        for (i=0;i<newRecords.length;i++) {
-            if (actualRecords[i] != newRecords[i]) {
+        for (i=0;i<newRecords.size();i++) {
+            if (actualRecords.get(i) != newRecords.get(i)) {
                 correct = false;
             }
         }
@@ -286,19 +292,21 @@ public void testSetMedicalRecords() {
 public void testSetPersonalBelongings() {
     Supply one = new Supply("Tent", 1);
     Supply two = new Supply("Jug", 3);
-    Supply[] newSupplies = {one, two};
+    ArrayList<Supply> newSupplies = new ArrayList<>();
+    newSupplies.add(one);
+    newSupplies.add(two);
     boolean correct = true;
 
     victim.setPersonalBelongings(newSupplies);
-    Supply[] actualSupplies = victim.getPersonalBelongings();
+    ArrayList<Supply> actualSupplies = victim.getPersonalBelongings();
 
     // We have not studied overriding equals in arrays of custom objects so we will manually evaluate equality
-    if (newSupplies.length != actualSupplies.length) {
+    if (newSupplies.size() != actualSupplies.size()) {
         correct = false;
     } else {
         int i;
-        for (i=0;i<newSupplies.length;i++) {
-            if (actualSupplies[i] != newSupplies[i]) {
+        for (i=0;i<newSupplies.size();i++) {
+            if (actualSupplies.get(i) != newSupplies.get(i)) {
                 correct = false;
             }
         }
