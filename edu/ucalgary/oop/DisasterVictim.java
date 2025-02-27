@@ -1,6 +1,8 @@
 package edu.ucalgary.oop;
 
+import java.util.Arrays;
 import java.util.regex.*;
+import java.util.List;
 import java.util.ArrayList;
 
 public class DisasterVictim {
@@ -8,9 +10,9 @@ public class DisasterVictim {
     private String lastName;
     private String dateOfBirth;
     private final int ASSIGNED_SOCIAL_ID;
-    private ArrayList<FamilyRelation> familyConnections;
-    private ArrayList<MedicalRecord> medicalRecords;
-    private ArrayList<Supply> personalBelongings;
+    private FamilyRelation[] familyConnections;
+    private MedicalRecord[] medicalRecords;
+    private Supply[] personalBelongings;
     private final String ENTRY_DATE;
     private String gender;
     private String comments;
@@ -26,9 +28,9 @@ public class DisasterVictim {
         }
         counter++;
         this.ASSIGNED_SOCIAL_ID = generateSocialID();
-        this.familyConnections = new ArrayList<>();
-        this.medicalRecords = new ArrayList<>();
-        this.personalBelongings = new ArrayList<>();
+        this.familyConnections = new FamilyRelation[1];
+        this.medicalRecords = new MedicalRecord[1];
+        this.personalBelongings = new Supply[1];
     }
     public DisasterVictim(String firstName, String ENTRY_DATE, String dateOfBirth) throws IllegalArgumentException{
         this.firstName = firstName;
@@ -41,9 +43,9 @@ public class DisasterVictim {
         }
         counter++;
         this.ASSIGNED_SOCIAL_ID = generateSocialID();
-        this.familyConnections = new ArrayList<>();
-        this.medicalRecords = new ArrayList<>();
-        this.personalBelongings = new ArrayList<>();
+        this.familyConnections = new FamilyRelation[1];
+        this.medicalRecords = new MedicalRecord[1];
+        this.personalBelongings = new Supply[1];
     }
 
     public String getFirstName(){
@@ -76,41 +78,55 @@ public class DisasterVictim {
         return this.ASSIGNED_SOCIAL_ID;
     }
 
-    public ArrayList<FamilyRelation> getFamilyConnections(){
+    public FamilyRelation[] getFamilyConnections(){
         return this.familyConnections;
     }
-    public void setFamilyConnections(ArrayList<FamilyRelation> connections){
+    public void setFamilyConnections(FamilyRelation[] connections){
         this.familyConnections = connections;
     }
     public void addFamilyConnection(FamilyRelation record){
-        // NOTE: Should I be using the getter here? Or is it okay to use 'this' instead?
-        this.familyConnections.add(record);
+        List<FamilyRelation> src = new ArrayList<>(Arrays.asList(this.getFamilyConnections()));
+        src.add(record);
+        FamilyRelation[] updated = src.toArray(new FamilyRelation[src.toArray().length]);
+        this.setFamilyConnections(updated);
     }
     public void removeFamilyConnection(FamilyRelation exRelation){
-        this.familyConnections.remove(exRelation);
+        List<FamilyRelation> src = new ArrayList<>(Arrays.asList(this.getFamilyConnections()));
+        src.remove(exRelation);
+        FamilyRelation[] updated = src.toArray(new FamilyRelation[src.toArray().length]);
+        this.setFamilyConnections(updated);
     }
 
-    public ArrayList<MedicalRecord> getMedicalRecords(){
+    public MedicalRecord[] getMedicalRecords(){
         return this.medicalRecords;
     }
-    public void setMedicalRecords(ArrayList<MedicalRecord> medicalRecords) {
+    public void setMedicalRecords(MedicalRecord[] medicalRecords) {
         this.medicalRecords = medicalRecords;
     }
     public void addMedicalRecord(MedicalRecord record){
-        this.medicalRecords.add(record);
+        List<MedicalRecord> src = new ArrayList<>(Arrays.asList(this.getMedicalRecords()));
+        src.add(record);
+        MedicalRecord[] updated = src.toArray(new MedicalRecord[src.toArray().length]);
+        this.setMedicalRecords(updated);
     }
 
-    public ArrayList<Supply> getPersonalBelongings(){
+    public Supply[] getPersonalBelongings(){
         return this.personalBelongings;
     }
-    public void setPersonalBelongings(ArrayList<Supply> belongings){
+    public void setPersonalBelongings(Supply[] belongings){
         this.personalBelongings = belongings;
     }
     public void addPersonalBelonging(Supply supply){
-        this.personalBelongings.add(supply);
+        List<Supply> src = new ArrayList<>(Arrays.asList(this.getPersonalBelongings()));
+        src.add(supply);
+        Supply[] updated = src.toArray(new Supply[src.toArray().length]);
+        this.setPersonalBelongings(updated);
     }
     public void removePersonalBelonging(Supply unwantedSupply){
-        this.personalBelongings.remove(unwantedSupply);
+        List<Supply> src = new ArrayList<>(Arrays.asList(this.getPersonalBelongings()));
+        src.remove(unwantedSupply);
+        Supply[] updated = src.toArray(new Supply[src.toArray().length]);
+        this.setPersonalBelongings(updated);
     }
 
     public String getEntryDate(){
